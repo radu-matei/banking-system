@@ -1,5 +1,8 @@
 package account;
 
+import account.exceptions.InvalidAccessTokenException;
+import account.exceptions.InvalidLoginDateException;
+import account.exceptions.InvalidUserNameException;
 import org.junit.Test;
 
 import java.util.Date;
@@ -58,5 +61,26 @@ public class LoginCredentialsTest {
         loginCredentials.setLastLogin(lastLogin);
 
         assertEquals(loginCredentials.getLastLogin(), lastLogin);
+    }
+
+    @Test(expected = InvalidUserNameException.class)
+    public void testSetIInvalidlUserName() throws InvalidUserNameException {
+        LoginCredentials loginCredentials = new LoginCredentials();
+
+        loginCredentials.setUserName(null);
+    }
+
+    @Test(expected = InvalidAccessTokenException.class)
+    public void testSetInvalidAccessToken() throws InvalidAccessTokenException {
+        LoginCredentials loginCredentials = new LoginCredentials();
+
+        loginCredentials.setAccessToken(null);
+    }
+
+    @Test(expected = InvalidLoginDateException.class)
+    public void testSetInvalidLogin() throws InvalidLoginDateException {
+        LoginCredentials loginCredentials = new LoginCredentials();
+
+        loginCredentials.setLastLogin(null);
     }
 }

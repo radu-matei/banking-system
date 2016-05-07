@@ -1,5 +1,7 @@
 package account;
 
+import account.exceptions.InvalidAccountIdException;
+import account.exceptions.InvalidBalanceException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -40,5 +42,17 @@ public class AccountTest {
         account.setBalance(balance);
 
         assertEquals(account.getBalance(), balance);
+    }
+
+    @Test(expected = InvalidAccountIdException.class)
+    public void setInvalidAccountId() throws InvalidAccountIdException {
+        Account account = new Account();
+        account.setAccountId(null);
+    }
+
+    @Test(expected = InvalidBalanceException.class)
+    public void setInvalidBalance() throws InvalidBalanceException {
+        Account account = new Account();
+        account.setBalance(null);
     }
 }
