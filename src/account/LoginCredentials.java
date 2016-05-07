@@ -1,5 +1,9 @@
 package account;
 
+import account.exceptions.InvalidAccessTokenException;
+import account.exceptions.InvalidLoginDateException;
+import account.exceptions.InvalidUserNameException;
+
 import java.util.Date;
 
 /**
@@ -10,10 +14,10 @@ public class LoginCredentials {
     private String accessToken;
     private Date lastLogin;
 
-    public LoginCredentials(String userName, String accessToken, Date lastLogin) {
-        this.userName = userName;
-        this.accessToken = accessToken;
-        this.lastLogin = lastLogin;
+    public LoginCredentials(String userName, String accessToken, Date lastLogin) throws InvalidUserNameException, InvalidAccessTokenException, InvalidLoginDateException {
+        this.setUserName(userName);
+        this.setAccessToken(accessToken);
+        this.setLastLogin(lastLogin);
     }
 
     public LoginCredentials(){
@@ -24,7 +28,10 @@ public class LoginCredentials {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(String userName) throws InvalidUserNameException {
+        if ((userName == null) || (userName.isEmpty()))
+            throw new InvalidUserNameException("The userName cannot be null or empty!");
+
         this.userName = userName;
     }
 
@@ -32,7 +39,10 @@ public class LoginCredentials {
         return accessToken;
     }
 
-    public void setAccessToken(String accessToken) {
+    public void setAccessToken(String accessToken) throws InvalidAccessTokenException {
+        if ((accessToken == null) || (accessToken.isEmpty()))
+            throw new InvalidAccessTokenException("The accessToken cannot be null or empty!");
+
         this.accessToken = accessToken;
     }
 
@@ -40,7 +50,10 @@ public class LoginCredentials {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(Date lastLogin) throws InvalidLoginDateException {
+        if (lastLogin == null)
+            throw new InvalidLoginDateException("The userName cannot be null!");
+
         this.lastLogin = lastLogin;
     }
 }
