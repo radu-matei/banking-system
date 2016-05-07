@@ -14,7 +14,9 @@ public class LoginCredentials {
     private String accessToken;
     private Date lastLogin;
 
-    public LoginCredentials(String userName, String accessToken, Date lastLogin) throws InvalidUserNameException, InvalidAccessTokenException, InvalidLoginDateException {
+    public LoginCredentials(String userName, String accessToken, Date lastLogin) throws InvalidUserNameException,
+                                                                                        InvalidAccessTokenException,
+                                                                                        InvalidLoginDateException {
         this.setUserName(userName);
         this.setAccessToken(accessToken);
         this.setLastLogin(lastLogin);

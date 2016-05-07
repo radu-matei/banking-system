@@ -12,7 +12,10 @@ public class SavingsAccount extends Account {
     private Integer numberOfMonths;
     private Double interestRate;
 
-    public SavingsAccount(String accountId, Double balance, Integer numberOfMonths, Double interestRate) throws InvalidNumberOfMonthsException, InvalidInterestRateException, InvalidBalanceException, InvalidAccountIdException {
+    public SavingsAccount(String accountId, Double balance, Integer numberOfMonths, Double interestRate) throws InvalidNumberOfMonthsException,
+                                                                                                                InvalidInterestRateException,
+                                                                                                                InvalidBalanceException,
+                                                                                                                InvalidAccountIdException {
         super(accountId, balance);
 
         this.setNumberOfMonths(numberOfMonths);
