@@ -1,9 +1,6 @@
 package account;
 
-import account.exceptions.InvalidAccountIdException;
-import account.exceptions.InvalidBalanceException;
-import account.exceptions.InvalidInterestRateException;
-import account.exceptions.InvalidNumberOfMonthsException;
+import account.exceptions.*;
 
 /**
  * Created by Radu on 5/7/16.

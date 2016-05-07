@@ -1,7 +1,6 @@
 package account;
 
-import account.exceptions.InvalidFullName;
-import account.exceptions.InvalidTellerId;
+import account.exceptions.*;
 
 /**
  * Created by Radu on 5/7/16.
