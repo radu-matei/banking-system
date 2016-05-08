@@ -17,13 +17,13 @@ public class TransferTransaction extends Transaction {
 
     public TransferTransaction(String transactionId,
                                Date transactionDate,
-                               Double amountAccount,
+                               Double amount,
                                Account targetAccount,
                                Account destinationAccount) throws InvalidAccountException,
                                                                   InvalidTransactionDateException,
                                                                   InvalidTransactionIdException,
                                                                   InvalidTransactionAmountException {
-        super(transactionId, transactionDate, amountAccount);
+        super(transactionId, transactionDate, amount);
         this.setTargetAccount(targetAccount);
         this.setDestinationAccount(destinationAccount);
     }
