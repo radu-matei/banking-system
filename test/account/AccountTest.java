@@ -1,7 +1,6 @@
 package account;
 
-import account.exceptions.InvalidAccountIdException;
-import account.exceptions.InvalidBalanceException;
+import account.exceptions.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

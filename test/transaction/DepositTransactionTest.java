@@ -1,12 +1,10 @@
 package transaction;
 
 import account.Account;
-import account.exceptions.InvalidAccountException;
-import account.exceptions.InvalidAccountIdException;
-import account.exceptions.InvalidBalanceException;
-import org.junit.Test;
-import transaction.exceptions.InvalidTransactionAmountException;
+import account.exceptions.*;
+import transaction.exceptions.*;
 
+import org.junit.Test;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -15,8 +13,8 @@ import static org.junit.Assert.*;
  * Created by Radu on 5/8/16.
  */
 public class DepositTransactionTest {
-    protected static final String transactionId = "transactionId";
-    protected static final Date transactionDate = new Date();
+    private static final String transactionId = "transactionId";
+    private static final Date transactionDate = new Date();
     private static final Double transactionAmount = 46.0;
 
     private static Account targetAccount;

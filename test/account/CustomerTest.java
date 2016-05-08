@@ -1,12 +1,6 @@
 package account;
 
-import account.Account;
-import account.Customer;
-import account.Teller;
-import account.exceptions.InvalidAccountIdException;
-import account.exceptions.InvalidBalanceException;
-import account.exceptions.InvalidFullName;
-import account.exceptions.InvalidTellerId;
+import account.exceptions.*;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

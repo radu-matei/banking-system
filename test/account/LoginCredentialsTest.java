@@ -1,8 +1,6 @@
 package account;
 
-import account.exceptions.InvalidAccessTokenException;
-import account.exceptions.InvalidLoginDateException;
-import account.exceptions.InvalidUserNameException;
+import account.exceptions.*;
 import org.junit.Test;
 
 import java.util.Date;

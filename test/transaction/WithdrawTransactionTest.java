@@ -17,8 +17,8 @@ import static org.junit.Assert.*;
 public class WithdrawTransactionTest {
 
 
-    protected static final String transactionId = "transactionId";
-    protected static final Date transactionDate = new Date();
+    private static final String transactionId = "transactionId";
+    private static final Date transactionDate = new Date();
     private static final Double transactionAmount = 2.0;
 
     private static Account targetAccount;
