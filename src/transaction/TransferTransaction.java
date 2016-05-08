@@ -59,18 +59,18 @@ public class TransferTransaction extends Transaction {
         if ((targetAccount == null) || (destinationAccount == null))
             throw new InvalidAccountException("The target or destination account cannot be null or empty!");
 
-        if (targetAccount.getBalance() < this.amount)
+        if (targetAccount.getBalance() < this.transactionAmount)
             throw new InvalidTransactionAmountException("The balance of the targetAccount cannot be " +
                                                         "less than the amount of the transaction!");
 
         try {
-            targetAccount.setBalance(targetAccount.getBalance() - this.amount);
+            targetAccount.setBalance(targetAccount.getBalance() - this.transactionAmount);
         } catch (InvalidBalanceException e) {
             e.printStackTrace();
         }
 
         try {
-            destinationAccount.setBalance(destinationAccount.getBalance() + this.amount);
+            destinationAccount.setBalance(destinationAccount.getBalance() + this.transactionAmount);
         } catch (InvalidBalanceException e) {
             e.printStackTrace();
         }

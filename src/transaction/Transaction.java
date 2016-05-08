@@ -9,16 +9,16 @@ import java.util.Date;
 public abstract class Transaction {
     protected String transactionId;
     protected Date transactionDate;
-    protected Double amount;
+    protected Double transactionAmount;
 
     public Transaction(String transactionId,
                        Date transactionDate,
-                       Double amount) throws InvalidTransactionAmountException,
+                       Double transactionAmount) throws InvalidTransactionAmountException,
                                              InvalidTransactionDateException,
                                              InvalidTransactionIdException {
         this.setTransactionId(transactionId);
         this.setTransactionDate(transactionDate);
-        this.setAmount(amount);
+        this.setTransactionAmount(transactionAmount);
     }
 
     public Transaction(){
@@ -47,15 +47,15 @@ public abstract class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public Double getAmount() {
-        return amount;
+    public Double getTransactionAmount() {
+        return transactionAmount;
     }
 
-    public void setAmount(Double amount) throws InvalidTransactionAmountException {
-        if ((amount == null) || (amount < 0))
+    public void setTransactionAmount(Double transactionAmount) throws InvalidTransactionAmountException {
+        if ((transactionAmount == null) || (transactionAmount < 0))
             throw new InvalidTransactionAmountException("The amount cannot be null or negative!");
 
-        this.amount = amount;
+        this.transactionAmount = transactionAmount;
     }
 
     public abstract void execute() throws Exception;
