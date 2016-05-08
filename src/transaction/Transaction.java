@@ -14,8 +14,8 @@ public abstract class Transaction {
     public Transaction(String transactionId,
                        Date transactionDate,
                        Double transactionAmount) throws InvalidTransactionAmountException,
-                                             InvalidTransactionDateException,
-                                             InvalidTransactionIdException {
+                                                        InvalidTransactionDateException,
+                                                        InvalidTransactionIdException {
         this.setTransactionId(transactionId);
         this.setTransactionDate(transactionDate);
         this.setTransactionAmount(transactionAmount);
