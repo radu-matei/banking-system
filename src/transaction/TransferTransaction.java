@@ -5,6 +5,8 @@ import account.Account;
 import account.exceptions.*;
 import transaction.exceptions.*;
 
+import java.util.Date;
+
 /**
  * Created by Radu on 5/7/16.
  */
@@ -13,7 +15,15 @@ public class TransferTransaction extends Transaction {
     private Account targetAccount;
     private Account destinationAccount;
 
-    public TransferTransaction(Account targetAccount, Account destinationAccount) throws InvalidAccountException {
+    public TransferTransaction(String transactionId,
+                               Date transactionDate,
+                               Double amountAccount,
+                               Account targetAccount,
+                               Account destinationAccount) throws InvalidAccountException,
+                                                                  InvalidTransactionDateException,
+                                                                  InvalidTransactionIdException,
+                                                                  InvalidTransactionAmountException {
+        super(transactionId, transactionDate, amountAccount);
         this.setTargetAccount(targetAccount);
         this.setDestinationAccount(destinationAccount);
     }
