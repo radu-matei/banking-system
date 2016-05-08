@@ -1,5 +1,7 @@
 package transaction;
 
+import transaction.exceptions.InvalidTransactionException;
+
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -24,15 +26,30 @@ public class TransactionManager {
         return instance;
     }
 
-    public void executeTransaction(Transaction transaction){
+    public void executeTransaction(Transaction transaction) throws Exception {
+        if (currentTransactions.contains(transaction.getTransactionId()))
+            throw new InvalidTransactionException("This transaction is currently executing!");
 
+        currentTransactions.put(transaction.getTransactionId(), transaction);
+
+        transaction.execute();
     }
 
-    public void commitTransaction(String transactionId){
+    public void commitTransaction(String transactionId) throws Exception {
+        if ((!currentTransactions.contains(transactionId)) || (transactionId == null))
+            throw new InvalidTransactionException("The transaction was not found or the id is invalid");
 
+        Transaction transaction = currentTransactions.get(transactionId);
+
+        transactionRepository.updateTransaction(transaction);
+        currentTransactions.remove(transactionId);
     }
 
-    public void rollBackTransaction(String transactionId){
+    public void rollBackTransaction(String transactionId) throws Exception {
 
+        if ((!currentTransactions.contains(transactionId)) || (transactionId == null))
+            throw new InvalidTransactionException("The transaction was not found or the id is invalid");
+
+        currentTransactions.remove(transactionId);
     }
 }
