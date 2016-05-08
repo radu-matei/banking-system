@@ -8,13 +8,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class TransactionManager {
 
     private ConcurrentHashMap<String, Transaction> currentTransactions;
+    private TransactionRepository transactionRepository;
+
     private static TransactionManager instance = null;
 
     private TransactionManager(){
         currentTransactions = new ConcurrentHashMap<>();
+        transactionRepository = TransactionRepository.getInstance();
     }
 
-    public static TransactionManager getInstance(){
+    public synchronized static TransactionManager getInstance(){
         if(instance == null)
             instance = new TransactionManager();
 
