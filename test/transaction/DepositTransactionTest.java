@@ -43,8 +43,11 @@ public class DepositTransactionTest {
                                                                        transactionDate,
                                                                        transactionAmount,
                                                                        targetAccount);
+        Double targetBalance = targetAccount.getBalance();
 
         depositTransaction.execute();
+
+        assertEquals(targetAccount.getBalance(), new Double(targetBalance + transactionAmount));
     }
 
     @Test(expected = InvalidAccountException.class)

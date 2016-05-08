@@ -1,10 +1,9 @@
 package transaction;
 
 import account.Account;
-import account.exceptions.InvalidAccountException;
-import transaction.exceptions.InvalidTransactionAmountException;
-import transaction.exceptions.InvalidTransactionDateException;
-import transaction.exceptions.InvalidTransactionIdException;
+
+import account.exceptions.*;
+import transaction.exceptions.*;
 
 import java.util.Date;
 
