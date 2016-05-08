@@ -94,4 +94,45 @@ public class TransferTransactionTest {
         assertEquals(targetAccount.getBalance(), new Double(1.0));
         assertEquals(destinationAccount.getBalance(), new Double(76.0));
     }
+
+    @Test(expected = InvalidTransactionAmountException.class)
+    public void executeInvalidAmount() throws Exception {
+        TransferTransaction transferTransaction = new TransferTransaction(transactionId,
+                                                                          transactionDate,
+                                                                          null,
+                                                                          targetAccount,
+                                                                          destinationAccount);
+
+        transferTransaction.execute();
+    }
+
+    @Test(expected = InvalidAccountException.class)
+    public void executeInvalidTargetAccount() throws Exception{
+        TransferTransaction transferTransaction = new TransferTransaction(transactionId,
+                                                                          transactionDate,
+                                                                          transactionAmount,
+                                                                          null,
+                                                                          destinationAccount);
+        transferTransaction.execute();
+    }
+
+    @Test(expected = InvalidAccountException.class)
+    public void executeInvalidDestinationAccount() throws Exception{
+        TransferTransaction transferTransaction = new TransferTransaction(transactionId,
+                                                                          transactionDate,
+                                                                          transactionAmount,
+                                                                          targetAccount,
+                                                                          null);
+        transferTransaction.execute();
+    }
+
+    @Test(expected = InvalidTransactionAmountException.class)
+    public void executeInvalidTransactionAmount() throws Exception{
+        TransferTransaction transferTransaction = new TransferTransaction(transactionId,
+                                                                          transactionDate,
+                                                                          48.0,
+                                                                          targetAccount,
+                                                                          destinationAccount);
+        transferTransaction.execute();
+    }
 }
