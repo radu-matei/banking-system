@@ -35,6 +35,7 @@ public class DepositTransaction extends Transaction {
             throw new InvalidAccountException("The target account cannot be null!");
 
         this.targetAccount = targetAccount;
+        this.accounts.add(0, targetAccount);
     }
 
     public Account getTargetAccount(){

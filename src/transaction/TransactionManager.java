@@ -1,5 +1,7 @@
 package transaction;
 
+import account.Account;
+import account.AccountRepository;
 import transaction.exceptions.InvalidTransactionException;
 import utils.Debugger;
 
@@ -13,11 +15,17 @@ public class TransactionManager {
     private ConcurrentHashMap<String, Transaction> currentTransactions;
     private TransactionRepository transactionRepository;
 
+    private ConcurrentHashMap<String, Account> currentAccounts;
+    private AccountRepository accountRepository;
+
     private static TransactionManager instance = null;
 
     private TransactionManager(){
         currentTransactions = new ConcurrentHashMap<>();
         transactionRepository = TransactionRepository.getInstance();
+
+        currentAccounts = new ConcurrentHashMap<>();
+        accountRepository = AccountRepository.getInstance();
     }
 
     public synchronized static TransactionManager getInstance(){
@@ -33,6 +41,10 @@ public class TransactionManager {
 
         currentTransactions.put(transaction.getTransactionId(), transaction);
 
+        for (Account account: transaction.getAccounts()) {
+            currentAccounts.put(account.getAccountId(), account);
+        }
+
         transaction.execute();
 
         Debugger.log(String.format("Transaction executed. Number of current transactions:% d",
@@ -45,6 +57,11 @@ public class TransactionManager {
 
         Transaction transaction = currentTransactions.get(transactionId);
 
+        for (Account account: transaction.getAccounts()) {
+            accountRepository.updateAccount(account);
+            currentAccounts.remove(account.getAccountId());
+        }
+
         transactionRepository.updateTransaction(transaction);
         currentTransactions.remove(transactionId);
     }
@@ -55,5 +72,11 @@ public class TransactionManager {
             throw new InvalidTransactionException("The transaction was not found or the id is invalid");
 
         currentTransactions.remove(transactionId);
+
+        Transaction transaction = currentTransactions.get(transactionId);
+
+        for (Account account: transaction.getAccounts()) {
+            currentAccounts.remove(account.getAccountId());
+        }
     }
 }

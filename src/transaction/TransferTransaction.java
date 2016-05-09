@@ -41,6 +41,7 @@ public class TransferTransaction extends Transaction {
             throw new InvalidAccountException("The target account cannot be null!");
 
         this.targetAccount = targetAccount;
+        this.accounts.add(0, targetAccount);
     }
 
     public Account getDestinationAccount() {
@@ -52,6 +53,7 @@ public class TransferTransaction extends Transaction {
             throw new InvalidAccountException("The destination account cannot be null!");
 
         this.destinationAccount = destinationAccount;
+        this.accounts.add(1, targetAccount);
     }
 
     @Override
