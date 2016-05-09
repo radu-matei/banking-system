@@ -76,6 +76,7 @@ public class TransactionManager {
         Transaction transaction = currentTransactions.get(transactionId);
 
         for (Account account: transaction.getAccounts()) {
+            accountRepository.put(account.getAccountId(), account);
             currentAccounts.remove(account.getAccountId());
         }
     }
