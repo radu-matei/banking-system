@@ -10,7 +10,10 @@ public class Main {
         TransactionManager transactionManager = TransactionManager.getInstance();
         TransactionRepository transactionRepository = TransactionRepository.getInstance();
 
+        AccountRepository accountRepository = AccountRepository.getInstance();
+
         Account targetAccount = new Account("targetAccountId", 4.0);
+        accountRepository.addAccount(targetAccount);
 
         DepositTransaction depositTransaction = new DepositTransaction("depositTransaction",
                                                                         new Date(),
