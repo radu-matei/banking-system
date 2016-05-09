@@ -1,6 +1,7 @@
 package transaction;
 
 import transaction.exceptions.InvalidTransactionException;
+import utils.Debugger;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -33,10 +34,13 @@ public class TransactionManager {
         currentTransactions.put(transaction.getTransactionId(), transaction);
 
         transaction.execute();
+
+        Debugger.log(String.format("Transaction executed. Number of current transactions:% d",
+                                    currentTransactions.size()));
     }
 
     public void commitTransaction(String transactionId) throws Exception {
-        if ((!currentTransactions.contains(transactionId)) || (transactionId == null))
+        if ((!currentTransactions.containsKey(transactionId)) || (transactionId == null))
             throw new InvalidTransactionException("The transaction was not found or the id is invalid");
 
         Transaction transaction = currentTransactions.get(transactionId);
