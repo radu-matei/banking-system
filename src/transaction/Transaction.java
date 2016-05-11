@@ -1,12 +1,17 @@
 package transaction;
 
+import account.Account;
 import transaction.exceptions.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by Radu on 5/7/16.
  */
 public abstract class Transaction {
+    protected ArrayList<Account> accounts = new ArrayList<>();
+
     protected String transactionId;
     protected Date transactionDate;
     protected Double transactionAmount;
@@ -56,6 +61,10 @@ public abstract class Transaction {
             throw new InvalidTransactionAmountException("The amount cannot be null or negative!");
 
         this.transactionAmount = transactionAmount;
+    }
+
+    public ArrayList<Account> getAccounts(){
+        return accounts;
     }
 
     public abstract void execute() throws Exception;

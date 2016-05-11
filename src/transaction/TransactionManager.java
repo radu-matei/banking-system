@@ -1,7 +1,9 @@
 package transaction;
 
+import account.Account;
+import account.AccountRepository;
+import account.TemporaryAccountStates;
 import transaction.exceptions.InvalidTransactionException;
-import utils.Debugger;
 
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -13,11 +15,17 @@ public class TransactionManager {
     private ConcurrentHashMap<String, Transaction> currentTransactions;
     private TransactionRepository transactionRepository;
 
+    private TemporaryAccountStates currentAccounts;
+    private AccountRepository accountRepository;
+
     private static TransactionManager instance = null;
 
     private TransactionManager(){
         currentTransactions = new ConcurrentHashMap<>();
         transactionRepository = TransactionRepository.getInstance();
+
+        currentAccounts = TemporaryAccountStates.getInstance();
+        accountRepository = AccountRepository.getInstance();
     }
 
     public synchronized static TransactionManager getInstance(){
@@ -33,10 +41,11 @@ public class TransactionManager {
 
         currentTransactions.put(transaction.getTransactionId(), transaction);
 
-        transaction.execute();
+        for (Account account: transaction.getAccounts()) {
+            currentAccounts.addAccount(account);
+        }
 
-        Debugger.log(String.format("Transaction executed. Number of current transactions:% d",
-                                    currentTransactions.size()));
+        transaction.execute();
     }
 
     public void commitTransaction(String transactionId) throws Exception {
@@ -45,14 +54,26 @@ public class TransactionManager {
 
         Transaction transaction = currentTransactions.get(transactionId);
 
+        for (Account account: transaction.getAccounts()) {
+            accountRepository.updateAccount(account);
+            currentAccounts.removeAccount(account.getAccountId());
+        }
+
         transactionRepository.updateTransaction(transaction);
         currentTransactions.remove(transactionId);
     }
 
     public void rollBackTransaction(String transactionId) throws Exception {
 
-        if ((!currentTransactions.contains(transactionId)) || (transactionId == null))
+        if ((!currentTransactions.containsKey(transactionId)) || (transactionId == null))
             throw new InvalidTransactionException("The transaction was not found or the id is invalid");
+
+        Transaction transaction = currentTransactions.get(transactionId);
+
+        for (Account account: transaction.getAccounts()) {
+            accountRepository.updateAccount(account);
+            currentAccounts.removeAccount(account.getAccountId());
+        }
 
         currentTransactions.remove(transactionId);
     }
